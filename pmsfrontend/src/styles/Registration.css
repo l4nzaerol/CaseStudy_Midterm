@@ -108,13 +108,13 @@ select.input-field {
 
 /* Buttons */
 .register-button {
-    width: 100%;
+    width: 50%;
     padding: 14px;
     background: #41918b;
     color: #fff;
     font-size: 16px;
     border: none;
-    border-radius: 4px;
+    border-radius: 10px;
     cursor: pointer;
     transition: 0.3s;
     margin-top: 10px;

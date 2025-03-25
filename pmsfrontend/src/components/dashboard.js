@@ -51,7 +51,7 @@ const Dashboard = ({ onLogout }) => {
 
             <div className="main-content">
                 <header className="dashboard-header">
-                    <h2>Welcome to Klick Inc. Dashboard</h2>
+                    <h2>Klick Inc. Dashboard</h2>
                     <button className="logout-button" onClick={handleLogout}>Logout</button>
                 </header>
             </div>
