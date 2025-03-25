@@ -47,3 +47,10 @@ Sprint 1: Project Setup and Basic Structure (1 Week)
 ✅ Implement user authentication (register, login, logout)
 ✅ Design database schema (projects, tasks, users)
 ✅ Create basic UI components (login, dashboard)
+
+
+Running the Application
+The Laravel backend runs at http://127.0.0.1:8000
+
+The React frontend runs at http://localhost:3000
+127.0.0.1
