@@ -16,8 +16,8 @@ Frontend: React.js
 Backend: Laravel (PHP)
 Database: MySQL
 Version Control: Git & GitHub
-Team Composition & Roles
 
+Team Composition & Roles
 Project Manager – Ardenio, Lanz Aerol C.
 
 Frontend Developer– Barayang, Crystal Anne
@@ -28,8 +28,8 @@ Tester/QA – Batiao, Khalvin
 
 Documentation Specialist – Asi, Regie Shaine
 
-Project Setup Guide
 
+Project Setup Guide
 This guide explains how to set up and run the Project Management System.
 
 Ensure you have the following installed:
