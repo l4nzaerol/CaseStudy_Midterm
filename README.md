@@ -18,6 +18,7 @@ Database: MySQL
 Version Control: Git & GitHub
 
 Team Composition & Roles
+
 Project Manager – Ardenio, Lanz Aerol C.
 
 Frontend Developer– Barayang, Crystal Anne
