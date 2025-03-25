@@ -40,14 +40,14 @@ const Registration = () => {
                 setError(data.message || "Registration failed");
             }
         } catch (error) {
-            setError("Already exist");
+            setError("Password must be at least 8 characters long");
         }
     };
 
     return (
         <div className="registration-container"> 
             <div className="registration-form">
-                <h2 className="registration-header">Create Your Account</h2>
+                <h2 className="registration-header">Register in Klick Inc.</h2>
                 {error && <p className="error-message">{error}</p>}
 
                 <form onSubmit={handleRegister}>
@@ -100,7 +100,7 @@ const Registration = () => {
                 </form>
 
                 <button onClick={() => navigate("/")} className="back-to-login-button">
-                    Already have an account? Sign in
+                    Already have an account? Login
                 </button>
             </div>
         </div>

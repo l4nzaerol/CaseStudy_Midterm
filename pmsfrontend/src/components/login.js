@@ -21,6 +21,10 @@ const Login = ({ onLogin }) => {
             const data = await response.json();
 
             if (response.ok) {
+                // Store token and role in localStorage
+                localStorage.setItem("token", data.token);
+                localStorage.setItem("role", data.user.role); // Assuming API returns user role
+
                 onLogin(data.token);
                 navigate("/dashboard");
             } else {
@@ -34,14 +38,10 @@ const Login = ({ onLogin }) => {
     return (
         <div className="login-container">
             <div className="login-box">
-
-                {/* Design Section with Welcome Message on the Left */}
                 <div className="design-section">
                     <h1 className="welcome-text">Welcome!</h1>
-
                 </div>
 
-                {/* Form Section on the Right */}
                 <div className="form-section">
                     <h1>Klick Inc.</h1>
                     <form onSubmit={handleLogin} className="login-form">
@@ -64,7 +64,6 @@ const Login = ({ onLogin }) => {
                             required
                             className="input-field"
                         />
-                        
 
                         <button type="submit" className="submit-button">Login</button>
                     </form>
