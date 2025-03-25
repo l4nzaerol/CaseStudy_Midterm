@@ -4,7 +4,8 @@ Overview Klick Inc. faces challenges in managing multiple projects simultaneousl
 
 Features
 
-User Authentication: Register, login, and logout functionalities. Project Management: Create, update, delete, and manage projects. Task Assignment: Assign tasks, update progress, and set priorities. Resource and Budget Management*: Allocate resources, track expenditures, and monitor progress. Collaboration Tools: Task comments, notifications, and file sharing. Reporting and Analytics: Generate project reports, risk assessments, and track issues. Tech Stack
+User Authentication: Register, login, and logout functionalities. 
+Project Management: Create, update, delete, and manage projects. Task Assignment: Assign tasks, update progress, and set priorities. Resource and Budget Management*: Allocate resources, track expenditures, and monitor progress. Collaboration Tools: Task comments, notifications, and file sharing. Reporting and Analytics: Generate project reports, risk assessments, and track issues. Tech Stack
 
 Frontend: React.js 
 Backend: Laravel (PHP) 
