@@ -19,9 +19,13 @@ Version Control: Git & GitHub
 Team Composition & Roles
 
 Project Manager – Ardenio, Lanz Aerol C.
+
 Frontend Developer– Barayang, Crystal Anne
+
 Backend Developer – Bagunu, Aeron
+
 Tester/QA – Batiao, Khalvin
+
 Documentation Specialist – Asi, Regie Shaine
 
 Project Setup Guide
