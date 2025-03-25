@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import '../styles/Registration.css';  // Import the updated CSS
 
 const Registration = () => {
     const [name, setName] = useState("");
@@ -38,23 +39,51 @@ const Registration = () => {
     };
 
     return (
-        <div>
-            <h2>Register</h2>
-            {error && <p style={{ color: "red" }}>{error}</p>}
-            <form onSubmit={handleRegister}>
-                <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
-                <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                <input type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
-                <select value={role} onChange={(e) => setRole(e.target.value)}>
+        <div className="registration-container">
+            <h2 className="registration-header">Create Your Account</h2>
+            {error && <p className="error-message">{error}</p>}
+            <form onSubmit={handleRegister} className="registration-form">
+                <input
+                    type="text"
+                    placeholder="Full Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                    className="input-field"
+                />
+                <input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="input-field"
+                />
+                <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="input-field"
+                />
+                <input
+                    type="password"
+                    placeholder="Confirm Password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
+                    className="input-field"
+                />
+                <select value={role} onChange={(e) => setRole(e.target.value)} className="input-field">
                     <option value="admin">Admin</option>
                     <option value="project_manager">Project Manager</option>
                     <option value="team_member">Team Member</option>
                     <option value="client">Client</option>
                 </select>
-                <button type="submit">Register</button>
+                <button type="submit" className="register-button">Register</button>
             </form>
-            <button onClick={() => navigate("/")}>Back to Login</button>
+            <button onClick={() => navigate("/")} className="back-to-login-button">Back to Login</button>
         </div>
     );
 };

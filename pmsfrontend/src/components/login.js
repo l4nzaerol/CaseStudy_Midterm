@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import '../styles/Login.css';  // Import the updated CSS
 
 const Login = ({ onLogin }) => {
     const [email, setEmail] = useState("");
@@ -31,15 +32,29 @@ const Login = ({ onLogin }) => {
     };
 
     return (
-        <div>
-            <h2>Login</h2>
-            {error && <p style={{ color: "red" }}>{error}</p>}
-            <form onSubmit={handleLogin}>
-                <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                <button type="submit">Login</button>
+        <div className="login-container">
+            <h2 className="login-header">Klick Inc.</h2>
+            {error && <p className="error-message">{error}</p>}
+            <form onSubmit={handleLogin} className="login-form">
+                <input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="input-field"
+                />
+                <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="input-field"
+                />
+                <button type="submit" className="login-button">Login</button>
             </form>
-            <button onClick={() => navigate("/register")}>Go to Register</button>
+            <button onClick={() => navigate("/register")} className="register-button">Register</button>
         </div>
     );
 };
