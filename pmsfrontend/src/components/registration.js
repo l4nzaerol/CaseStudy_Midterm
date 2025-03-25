@@ -90,7 +90,6 @@ const Registration = () => {
                         onChange={(e) => setRole(e.target.value)}
                         className="input-field"
                     >
-                        <option value="admin">Admin</option>
                         <option value="project_manager">Project Manager</option>
                         <option value="team_member">Team Member</option>
                         <option value="client">Client</option>

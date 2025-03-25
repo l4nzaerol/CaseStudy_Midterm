@@ -26,7 +26,7 @@ class AuthController extends Controller
             'confirmed',
             'regex:/^[A-Za-z\d@$!%*?&]+$/',
         ],
-            'role' => 'required|in:admin,project_manager,team_member,client',
+            'role' => 'required|in:project_manager,team_member,client',
         ]);
 
         $user = User::create([
