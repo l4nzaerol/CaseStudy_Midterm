@@ -1,118 +1,164 @@
-/* General Layout */
+/* Container */
 .registration-container {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background: linear-gradient(135deg, #4CAF50, #2196F3); /* Green to Blue gradient */
-    color: #fff;
-    font-family: 'Lato', sans-serif;
-    overflow: hidden;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #4a948f, #76b497); /* Updated gradient */
+    margin: 0;
+    padding: 20px;
 }
 
-/* Header */
-.registration-header {
-    font-size: 3rem;
-    font-weight: 600;
-    color: #fff;
-    margin-bottom: 40px;
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-/* Form Styling */
+/* Form Box */
 .registration-form {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    max-width: 450px;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(8px); /* Transparent blur effect */
-    padding: 35px;
-    border-radius: 15px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    width: 450px;
+    padding: 40px;
+    background: #ffffff;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    transition: 0.3s;
+    position: relative;
+}
+
+/* Form Header */
+.registration-header {
+    font-size: 24px;
+    font-weight: bold;
+    color: #1a4643;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Close Button (Top-right corner) */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 20px;
+    color: #aaa;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close-btn:hover {
+    color: #68b0ab;
 }
 
 /* Input Fields */
 .input-field {
-    padding: 15px;
-    margin: 12px 0;
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
     border: none;
-    border-radius: 10px;
-    font-size: 1.1rem;
-    background-color: rgba(255, 255, 255, 0.8);
-    color: #2e2e2e;
-    transition: all 0.3s ease;
+    border-bottom: 2px solid #ccc;
+    font-size: 14px;
+    transition: 0.3s;
+    background: transparent;
 }
 
 .input-field:focus {
-    border: 2px solid #2196F3; /* Blue border on focus */
+    border-bottom: 2px solid #68b0ab;
     outline: none;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(33, 150, 243, 0.4); /* Soft blue shadow */
 }
 
-/* Button Styling */
+/* Dropdown Styling */
+select.input-field {
+    cursor: pointer;
+    color: #555;
+}
+
+/* Password Eye Icon (Mock) */
+.password-container {
+    position: relative;
+}
+
+.password-container input {
+    width: 100%;
+    padding-right: 40px;
+}
+
+.eye-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.eye-icon:hover {
+    color: #68b0ab;
+}
+
+/* Checkbox and Terms */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.checkbox-container input {
+    margin-right: 10px;
+}
+
+/* Buttons */
 .register-button {
+    width: 100%;
     padding: 14px;
-    background-color: #4CAF50; /* Green button color */
-    color: white;
+    background: #41918b;
+    color: #fff;
+    font-size: 16px;
     border: none;
-    border-radius: 10px;
-    font-size: 1.1rem;
-    font-weight: 600;
+    border-radius: 4px;
     cursor: pointer;
-    transition: transform 0.3s ease, background-color 0.3s ease;
+    transition: 0.3s;
+    margin-top: 10px;
 }
 
+/* Button Hover Effect */
 .register-button:hover {
-    background-color: #388E3C; /* Darker green for hover effect */
-    transform: translateY(-3px); /* Floating effect */
+    background: #5a9c98;
 }
 
-/* Back to Login Button */
+/* Back to Login Link */
 .back-to-login-button {
-    padding: 10px 20px;
-    margin-top: 20px;
     background: transparent;
-    border: 2px solid #2196F3; /* Blue border */
-    color: #2196F3;
-    border-radius: 10px;
-    font-size: 1rem;
-    font-weight: 600;
+    color: #1e5350;
+    border: none;
+    text-align: center;
+    font-size: 14px;
     cursor: pointer;
-    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    transition: 0.3s;
+    margin-top: 15px;
 }
 
 .back-to-login-button:hover {
-    background-color: #2196F3;
-    color: white;
-    transform: translateY(-3px); /* Floating effect */
+    text-decoration: underline;
+    color: #5a9c98;
 }
 
 /* Error Message */
 .error-message {
-    color: #FF3B30; /* Red error message color */
-    font-size: 1rem;
+    color: red;
+    font-size: 14px;
     text-align: center;
     margin-bottom: 15px;
 }
 
 /* Mobile Responsiveness */
-@media (max-width: 600px) {
-    .registration-container {
-        padding: 20px;
-    }
-
-    .registration-header {
-        font-size: 2.5rem;
-    }
-
+@media (max-width: 768px) {
     .registration-form {
         width: 90%;
+        padding: 30px;
     }
 
     .input-field, .register-button, .back-to-login-button {
-        font-size: 1rem;
+        font-size: 14px;
+        padding: 12px;
     }
 }

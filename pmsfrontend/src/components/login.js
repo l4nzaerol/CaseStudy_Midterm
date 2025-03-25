@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import '../styles/Login.css';  // Import the updated CSS
+import "../styles/Login.css";  // Updated CSS file
 
 const Login = ({ onLogin }) => {
     const [email, setEmail] = useState("");
@@ -33,28 +33,49 @@ const Login = ({ onLogin }) => {
 
     return (
         <div className="login-container">
-            <h2 className="login-header">Klick Inc.</h2>
-            {error && <p className="error-message">{error}</p>}
-            <form onSubmit={handleLogin} className="login-form">
-                <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    className="input-field"
-                />
-                <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    className="input-field"
-                />
-                <button type="submit" className="login-button">Login</button>
-            </form>
-            <button onClick={() => navigate("/register")} className="register-button">Register</button>
+            <div className="login-box">
+
+                {/* Design Section with Welcome Message on the Left */}
+                <div className="design-section">
+                    <h1 className="welcome-text">Welcome!</h1>
+
+                </div>
+
+                {/* Form Section on the Right */}
+                <div className="form-section">
+                    <h1>Klick Inc.</h1>
+                    <form onSubmit={handleLogin} className="login-form">
+                        {error && <p className="error-message">{error}</p>}
+
+                        <input
+                            type="email"
+                            placeholder="Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            className="input-field"
+                        />
+
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                            className="input-field"
+                        />
+                        
+
+                        <button type="submit" className="submit-button">Login</button>
+                    </form>
+                    <button 
+                        onClick={() => navigate("/register")} 
+                        className="register-button"
+                    >
+                        Register in Klick Inc.
+                    </button>
+                </div>
+            </div>
         </div>
     );
 };
