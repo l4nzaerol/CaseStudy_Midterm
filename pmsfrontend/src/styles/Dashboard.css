@@ -10,49 +10,94 @@
 }
 
 /* ===========================
-   Sidebar Styling (Glassmorphism)
+   Sidebar Styling (Enhanced)
 =========================== */
 .sidebar {
     width: 260px;
-    background: rgba(29, 95, 90, 0.85); /* Semi-dark glass effect */
-    backdrop-filter: blur(12px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    background: rgba(29, 95, 90, 0.9); /* Slightly darker for better contrast */
+    backdrop-filter: blur(15px);
+    box-shadow: 5px 0 20px rgba(0, 0, 0, 0.5);
     padding: 30px 20px;
     display: flex;
     flex-direction: column;
-    color: #ffffff;  
+    color: #ffffff;
     border-radius: 20px 0 0 20px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    overflow-y: auto;
 }
 
 /* Sidebar Title */
 .sidebar-title {
-    font-size: 30px;
+    font-size: 28px;
     font-weight: bold;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     text-align: center;
-    color: #ecf0f1;  
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+    color: #ecf0f1;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
 }
 
 /* Sidebar Links */
-.sidebar-links li {
+.sidebar-links {
+    padding: 0;
+    margin: 0;
     list-style: none;
-    margin-bottom: 25px;
 }
 
+.sidebar-links li {
+    margin-bottom: 20px;
+}
+
+/* Sidebar Links with Icons */
 .sidebar-links a {
     text-decoration: none;
-    color: #dfe6e9;  /* Light gray links */
+    color: #dfe6e9;
     font-size: 18px;
     transition: 0.3s;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 15px;  /* Spacing between icon and text */
+    padding: 12px 15px;
+    border-radius: 10px;
 }
 
+/* Active Link Highlight */
+.sidebar-links a.active {
+    background: rgba(255, 255, 255, 0.2);
+    color: #74b9ff;
+    font-weight: bold;
+}
+
+/* Sidebar Hover Effect */
 .sidebar-links a:hover {
-    color: #74b9ff;  /* Light blue hover */
-    transform: translateX(10px);
+    background: rgba(255, 255, 255, 0.15);
+    color: #74b9ff;
+    transform: translateX(5px);
+}
+
+/* Sidebar Icons */
+.sidebar-icon {
+    font-size: 22px;
+    color: #ffffff;
+}
+
+/* Responsive Sidebar */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+        padding: 20px;
+    }
+
+    .sidebar-title {
+        font-size: 24px;
+    }
+
+    .sidebar-links a {
+        font-size: 16px;
+        padding: 10px;
+    }
 }
 
 /* ===========================
@@ -79,6 +124,7 @@
     font-weight: bold;
     color: #ecf0f1;  
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+    margin-left: 300px;
 }
 
 /* Logout Button */
