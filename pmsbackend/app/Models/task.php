@@ -20,5 +20,3 @@ class Task extends Model
         'user_id',
     ];
 }
-
-}
