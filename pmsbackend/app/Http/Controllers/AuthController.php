@@ -16,21 +16,54 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
+
+        // Check if there's no user in the database
+        if (User::count() === 0) {
+            // Create a default admin account if no users exist
+            $admin = User::create([
+                'name' => 'Admin',
+                'email' => 'admin@gmail.com',
+                'password' => Hash::make('admin123'),
+                'role' => 'Admin',
+            ]);
+
+            // Generate authentication token for the admin account
+            $adminToken = $admin->createToken('authToken')->plainTextToken;
+
+            // Return a response with the admin details and token
+            return response()->json([
+                'message' => 'Default admin account created!',
+                'user' => $admin,
+                'token' => $adminToken
+            ], 201);
+        }
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => [
+            'required',
+            'string',
+            'min:8',
+            'confirmed',
+            'regex:/^[A-Za-z\d@$!%*?&]+$/',
+        ],
+            'role' => 'required|in:project_manager,team_member,client',
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => $request->role,
         ]);
+
+        $token = $user->createToken('authToken')->plainTextToken;
 
         return response()->json([
             'message' => 'User registered successfully!',
-            'user' => $user
+            'user' => $user,
+            'token' => $token
         ], 201);
     }
 
