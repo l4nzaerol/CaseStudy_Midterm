@@ -7,7 +7,6 @@ const Dashboard = ({ onLogout }) => {
     const [role, setRole] = useState("");
 
     useEffect(() => {
-        // Retrieve user role from localStorage
         const storedRole = localStorage.getItem("role");
         if (storedRole) {
             setRole(storedRole);
@@ -25,14 +24,31 @@ const Dashboard = ({ onLogout }) => {
                 },
             });
 
-            if (response.ok) {
+            // Even if logout API fails, force logout on frontend
+            if (response.ok || response.status === 401 || response.status === 419) {
                 localStorage.removeItem("token");
-                localStorage.removeItem("role"); // Clear stored role
-                onLogout();
+                localStorage.removeItem("role");
+                if (onLogout) {
+                    onLogout();
+                }
+                navigate("/");
+            } else {
+                console.error("Logout request failed.");
+                localStorage.removeItem("token"); 
+                localStorage.removeItem("role");
+                if (onLogout) {
+                    onLogout();
+                }
                 navigate("/");
             }
         } catch (error) {
             console.error("Logout failed", error);
+            localStorage.removeItem("token");
+            localStorage.removeItem("role");
+            if (onLogout) {
+                onLogout();
+            }
+            navigate("/");
         }
     };
 
@@ -45,7 +61,6 @@ const Dashboard = ({ onLogout }) => {
                 <ul className="sidebar-links">
                     <li><Link to="/projects">Projects</Link></li>
                     <li><Link to="/tasks">Tasks</Link></li>
-                    <li><Link to="/reports">Reports</Link></li>
                 </ul>
             </aside>
 

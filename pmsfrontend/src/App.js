@@ -3,9 +3,10 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import Login from "./components/login";
 import Registration from "./components/registration";
 import Dashboard from "./components/dashboard";
-import Projects from "./components/projects";
-import Tasks from "./components/tasks";
-import Reports from "./components/reports";
+import Projects from './components/Projects';
+import ProjectDetails from './components/ProjectDetails';
+
+
 
 const App = () => {
     const [token, setToken] = useState(localStorage.getItem("token"));
@@ -28,8 +29,7 @@ const App = () => {
                 <Route path="/register" element={<Registration />} />
                 <Route path="/dashboard" element={token ? <Dashboard onLogout={handleLogout} /> : <Navigate to="/" />} />
                 <Route path="/projects" element={<Projects />} />
-                <Route path="/tasks" element={<Tasks />} />
-                <Route path="/reports" element={<Reports />} />
+                <Route path="/projects/:id" element={<ProjectDetails />} />
             </Routes>
         </Router>
     );

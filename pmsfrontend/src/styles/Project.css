@@ -1,0 +1,236 @@
+/* ===========================
+   General Styling
+=========================== */
+
+.gradient-bg {
+    background: #f4f7f6; /* Soft light background */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 20px;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+}
+
+/* Main Content Area */
+.main-content {
+    width: 100%;
+    max-width: 1000px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 20px;
+    background-color: #ffffff; /* White background for content */
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Styling */
+.dashboard-header {
+    font-size: 32px;
+    font-weight: 600;
+    color: #2c3e50;
+    text-align: center;
+}
+
+/* Form and Input Field Styling */
+.form-container {
+    width: 100%;
+    max-width: 500px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.input-field, .textarea-field {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #333;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease-in-out;
+}
+
+.input-field:focus, .textarea-field:focus {
+    border-color: #3498db;
+    outline: none;
+    background-color: #eaf4ff;
+}
+
+/* Button Styling */
+.submit-button, .edit-button, .delete-button, .view-button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover, .edit-button:hover, .delete-button:hover, .view-button:hover {
+    background-color: #2980b9;
+}
+
+/* Modal Styling (for Edit Project Form) */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    padding: 20px;
+    width: 100%;
+    max-width: 600px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.modal input, .modal textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.modal button {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.modal button:hover {
+    background-color: #2980b9;
+}
+
+/* Project List Table */
+.project-list {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 30px;
+}
+
+.project-list table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+
+.project-list th, .project-list td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.project-list th {
+    background-color: #3498db;
+    color: white;
+}
+
+.project-list td {
+    background-color: #f9f9f9;
+}
+
+.project-list tr:hover {
+    background-color: #ecf0f1;
+}
+
+/* Button Group for Table Actions */
+.button-group {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.modal-section {
+    margin-bottom: 20px;
+}
+
+.team-member-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.assigned-members-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.assigned-member-item {
+    background-color: #f1f1f1;
+    margin-bottom: 8px;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+/* New button style for Cancel */
+.cancel-button {
+    background-color: #ccc;
+    color: #333;
+    border: none;
+    padding: 10px;
+    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cancel-button:hover {
+    background-color: #bbb;
+}
+
+
+/* ===========================
+   Mobile Responsiveness
+=========================== */
+@media (max-width: 768px) {
+    .main-content {
+        padding: 15px;
+    }
+
+    .dashboard-header {
+        font-size: 28px;
+    }
+
+    .input-field, .textarea-field {
+        font-size: 14px;
+    }
+
+    .modal-content {
+        width: 90%;
+    }
+
+    .submit-button, .edit-button, .delete-button, .view-button {
+        width: 100%;
+        font-size: 14px;
+    }
+}
