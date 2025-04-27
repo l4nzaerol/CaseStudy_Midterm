@@ -1,251 +1,131 @@
-/* ===========================
-   Elegant Gradient Background
-=========================== */
-.gradient-bg {
-    background: linear-gradient(135deg, #35b1a8, #437e62); /* Updated gradient */
-    min-height: 100vh;
+.dashboard {
     display: flex;
-    color: #f1f1f1;  /* Light text for contrast */
-    font-family: 'Poppins', sans-serif;
-}
-
-/* ===========================
-   Sidebar Styling (Enhanced)
-=========================== */
-.sidebar {
-    width: 260px;
-    background: rgba(29, 95, 90, 0.9); /* Slightly darker for better contrast */
-    backdrop-filter: blur(15px);
-    box-shadow: 5px 0 20px rgba(0, 0, 0, 0.5);
-    padding: 30px 20px;
-    display: flex;
-    flex-direction: column;
-    color: #ffffff;
-    border-radius: 20px 0 0 20px;
     height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    overflow-y: auto;
+    position: relative;
 }
 
-/* Sidebar Title */
-.sidebar-title {
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 30px;
-    text-align: center;
-    color: #ecf0f1;
-    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
+.sidebar {
+    width: 250px;
+    background-color: #34495e; /* Darker blue */
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
-/* Sidebar Links */
-.sidebar-links {
+.sidebar h2 {
+    font-size: 2.1rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.sidebar ul {
+    list-style-type: none;
     padding: 0;
-    margin: 0;
-    list-style: none;
 }
 
-.sidebar-links li {
-    margin-bottom: 20px;
-}
-
-/* Sidebar Links with Icons */
-.sidebar-links a {
-    text-decoration: none;
-    color: #dfe6e9;
-    font-size: 18px;
-    transition: 0.3s;
+.sidebar ul li {
     display: flex;
     align-items: center;
-    gap: 15px;  /* Spacing between icon and text */
-    padding: 12px 15px;
-    border-radius: 10px;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-/* Active Link Highlight */
-.sidebar-links a.active {
-    background: rgba(255, 255, 255, 0.2);
-    color: #74b9ff;
-    font-weight: bold;
+.sidebar ul li.active {
+    background-color: #2c3e50; /* Slightly darker for active state */
 }
 
-/* Sidebar Hover Effect */
-.sidebar-links a:hover {
-    background: rgba(255, 255, 255, 0.15);
-    color: #74b9ff;
-    transform: translateX(5px);
+.sidebar ul li:hover {
+    background-color: #2c3e50; /* Slightly darker on hover */
 }
 
-/* Sidebar Icons */
-.sidebar-icon {
-    font-size: 22px;
-    color: #ffffff;
+.sidebar ul li svg {
+    margin-right: 10px;
 }
 
-/* Responsive Sidebar */
-@media (max-width: 768px) {
-    .sidebar {
-        width: 200px;
-        padding: 20px;
-    }
-
-    .sidebar-title {
-        font-size: 24px;
-    }
-
-    .sidebar-links a {
-        font-size: 16px;
-        padding: 10px;
-    }
+.logout-btn {
+    background-color: #e74c3c; /* Red for logout button */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-/* ===========================
-   Main Content Styling
-=========================== */
+.logout-btn:hover {
+    background-color: #c0392b; /* Darker red on hover */
+}
+
 .main-content {
-    flex: 1;
-    padding: 50px;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #ecf0f1; /* Light gray background */
+    overflow-y: auto;
+    color: #2c3e50; /* Dark gray text */
 }
 
-/* Header */
-.dashboard-header {
+.project-form {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    background-color: #bdc3c7; /* Soft gray */
+    padding: 1rem;
+    border-radius: 10px;
+    align-items: flex-end;
 }
 
-.dashboard-header h2 {
-    font-size: 42px;
+.project-form > input,
+.project-form > select {
+    flex: 1 1 200px;
+}
+
+.project-form button {
+    margin-left: auto;
+    background-color: #3498db; /* Professional blue */
+    color: white;
     font-weight: bold;
-    color: #ecf0f1;  
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
-    margin-left: 300px;
-}
-
-/* Logout Button */
-.logout-button {
-    background: #e74c3c;  /* Red logout button */
-    color: #ffffff;
     border: none;
-    padding: 14px 28px;
-    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: 0.3s;
-    border-radius: 30px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    transition: background-color 0.3s ease;
 }
 
-.logout-button:hover {
-    background: #c0392b;  
+.project-form button:hover {
+    background-color: #2980b9; /* Darker blue on hover */
 }
 
-/* ===========================
-   Card Styling (Light-Dark Blend)
-=========================== */
-.dashboard-cards {
-    display: flex;
-    gap: 30px;
-    justify-content: space-between;
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
 }
 
-.card {
-    background: linear-gradient(135deg, #576574, #8395a7);  /* Light-dark gradient */
-    color: #f1f1f1;  
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
-    transition: 0.4s;
-    width: 30%;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.user-table th,
+.user-table td {
+    padding: 10px;
+    border: 1px solid #ddd; /* Light gray border */
+    text-align: left;
 }
 
-.card:hover {
-    transform: translateY(-12px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+.user-table th {
+    background-color: #34495e; /* Dark blue header */
+    color: white;
 }
 
-/* Card Icon */
-.card-icon {
-    font-size: 55px;
-    margin-bottom: 20px;
-    color: #74b9ff;  /* Light blue icon */
+.user-table td {
+    background-color: #fff;
 }
 
-/* Card Text */
-.card h3 {
-    font-size: 30px;
-    margin-bottom: 15px;
-    color: #ecf0f1;  
-}
-
-.card p {
-    font-size: 18px;
-    color: #dfe6e9;  
-    margin-bottom: 25px;
-}
-
-/* Button Styling */
-.card button {
-    background: #27ae60;  /* Green button */
-    color: #fff;
-    border: none;
-    padding: 12px 28px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.3s;
-    border-radius: 25px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.card button:hover {
-    background: #2ecc71;
-    transform: translateY(-5px);
-}
-
-/* ===========================
-   Mobile Responsiveness
-=========================== */
-@media (max-width: 1024px) {
-    .dashboard-cards {
-        flex-direction: column;
-    }
-
-    .card {
-        width: 100%;
-    }
-
-    .sidebar {
-        width: 220px;
-    }
-
-    .dashboard-header h2 {
-        font-size: 36px;
-    }
-}
-
-@media (max-width: 768px) {
-    .sidebar {
-        display: none;
-    }
-
-    .main-content {
-        padding: 30px;
-    }
-
-    .dashboard-header h2 {
-        font-size: 28px;
-    }
-
-    .logout-button {
-        padding: 12px 22px;
-        font-size: 14px;
-    }
+.user-table tr:nth-child(even) {
+    background-color: #f9f9f9; /* Light background for even rows */
 }

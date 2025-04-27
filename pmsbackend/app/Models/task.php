@@ -16,23 +16,9 @@ class Task extends Model
         'assigned_to',
         'status',
         'priority',
-        'due_date',
+        'project_id',
+        'user_id',
     ];
-
-    // Relationships
-    public function project()
-    {
-        return $this->belongsTo(Project::class);
-    }
-
-    public function assignedUser()
-    {
-        return $this->belongsTo(User::class, 'assigned_to');
-    }
-
-    public function users()
-{
-    return $this->belongsToMany(User::class, 'task_user');
 }
 
 }
