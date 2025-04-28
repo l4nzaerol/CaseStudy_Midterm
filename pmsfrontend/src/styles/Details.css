@@ -108,3 +108,59 @@
 .project-details-container .back-button:focus {
     outline: none;
 }
+
+/* Progress Bar Styles */
+.progress-bar-container {
+    width: 100%;
+    background-color: #ddd;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    height: 25px;
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    line-height: 25px;
+    font-weight: bold;
+    transition: width 0.5s ease-in-out;
+}
+
+/* Gantt Chart Styles */
+.gantt-chart {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    background-color: #f1f1f1;
+    padding: 15px;
+    border-radius: 8px;
+    overflow-x: auto;
+}
+
+.gantt-task {
+    background-color: #007BFF;
+    color: white;
+    padding: 8px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    min-width: 80px;
+    text-align: center;
+    position: relative;
+}
+
+/* Task Buttons (Edit/Delete) */
+.project-details-container button {
+    margin-right: 10px;
+    margin-top: 8px;
+}
+
+.project-details-container button[type="button"] {
+    background-color: #f44336;
+}
+
+.project-details-container button[type="button"]:hover {
+    background-color: #d32f2f;
+}
