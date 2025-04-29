@@ -14,7 +14,9 @@ const ProjectDetails = () => {
         assigned_to: '',
         status: 'todo',
         priority: 'medium',
-        due_date: ''
+        due_date: '',
+        start_date: '',
+        time_spent: 0
     });
 
     const [editTaskId, setEditTaskId] = useState(null);
@@ -25,6 +27,7 @@ const ProjectDetails = () => {
         status: 'todo',
         priority: 'medium',
         due_date: '',
+        start_date: '',
         time_spent: 0
     });
 
@@ -80,7 +83,7 @@ const ProjectDetails = () => {
             [e.target.name]: e.target.value
         });
     };
-
+    
     const handleEditInputChange = (e) => {
         setEditTaskData({
             ...editTaskData,
@@ -91,45 +94,48 @@ const ProjectDetails = () => {
     const handleCreateTask = async (e) => {
         e.preventDefault();
         const token = localStorage.getItem("token");
-
+    
         const taskPayload = {
             ...newTask,
             project_id: parseInt(id),
             assigned_to: newTask.assigned_to || null,
+            time_spent: newTask.time_spent || 0
         };
-
+    
         const response = await fetch(`http://127.0.0.1:8000/api/tasks`, {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${token}`,
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(taskPayload)
+            body: JSON.stringify(taskPayload) // ✅ Use the variable here
         });
-
+    
         if (response.ok) {
             const createdTask = await response.json();
             const assignedUser = users.find(u => u.id === parseInt(createdTask.assigned_to));
-
+    
             const updatedTask = {
                 ...createdTask,
                 assigned_user_name: assignedUser ? assignedUser.name : "Unassigned"
             };
-
+    
             setTasks(prev => [...prev, updatedTask]);
-
+    
             setNewTask({
                 title: '',
                 description: '',
                 assigned_to: '',
                 status: 'todo',
                 priority: 'medium',
-                due_date: ''
+                due_date: '',
+                time_spent: 0
             });
         } else {
             console.error("Failed to create task");
         }
     };
+    
 
     const handleDeleteTask = async (taskId) => {
         const token = localStorage.getItem("token");
@@ -198,12 +204,13 @@ const ProjectDetails = () => {
     const handleBudgetUpdate = async (e) => {
         e.preventDefault();
         const token = localStorage.getItem("token");
-
+    
         const updatedProject = {
             ...project,
             actual_cost: budgetUpdate,
         };
-
+    
+      
         const response = await fetch(`http://127.0.0.1:8000/api/projects/${id}`, {
             method: "PUT",
             headers: {
@@ -212,14 +219,23 @@ const ProjectDetails = () => {
             },
             body: JSON.stringify(updatedProject)
         });
-
+    
         if (response.ok) {
-            const data = await response.json();
+            // Fetch updated project again
+            const refreshedProject = await fetch(`http://127.0.0.1:8000/api/projects/${id}`, {
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                }
+            });
+            const data = await refreshedProject.json();
             setProject(data);
+            setBudgetUpdate(data.actual_cost); // sync local input
         } else {
             console.error("Failed to update budget");
         }
     };
+    
 
     const handleBackToProjects = () => {
         navigate('/projects');
@@ -240,6 +256,22 @@ const ProjectDetails = () => {
     }, 0);
     const progressPercent = totalTasks ? Math.round((completedPoints / totalTasks) * 100) : 0;
 
+    const getGanttBarStyle = (taskStartDate, taskEndDate) => {
+        const projectStartDate = new Date(project.start_date);
+        const projectEndDate = new Date(project.end_date || Date.now());
+
+        const taskStart = new Date(taskStartDate);
+        const taskEnd = new Date(taskEndDate);
+
+        const totalProjectDuration = (projectEndDate - projectStartDate) / (1000 * 60 * 60 * 24); // Days
+        const taskDuration = (taskEnd - taskStart) / (1000 * 60 * 60 * 24); // Days
+        const taskStartOffset = (taskStart - projectStartDate) / (1000 * 60 * 60 * 24); // Days
+
+        return {
+            width: `${(taskDuration / totalProjectDuration) * 100}%`,
+            left: `${(taskStartOffset / totalProjectDuration) * 100}%`
+        };
+    };
 
     return (
         <div className="project-details-container">
@@ -257,9 +289,13 @@ const ProjectDetails = () => {
             </div>
 
             <h3>Budget Tracking</h3>
-            <p><strong>Total Budget:</strong> ${project.budget}</p>
-            <p><strong>Actual Cost:</strong> ${project.actual_cost}</p>
-            <p><strong>Remaining Budget:</strong> ${project.budget - project.actual_cost}</p>
+            {project && (
+            <>
+                <p><strong>Total Budget:</strong> ${project.budget ?? 0}</p>
+                <p><strong>Actual Cost:</strong> ${project.actual_cost ?? 0}</p>
+                <p><strong>Remaining Budget:</strong> ${Math.max(0, (project.budget ?? 0) - (project.actual_cost ?? 0))}</p>
+            </>
+            )}
 
             <form onSubmit={handleBudgetUpdate}>
                 <input
@@ -320,6 +356,13 @@ const ProjectDetails = () => {
                                     </select>
                                     <input
                                         type="date"
+                                        name="start_date"
+                                        value={editTaskData.start_date || ''}
+                                        onChange={handleEditInputChange}
+                                    />
+
+                                    <input
+                                        type="date"
                                         name="due_date"
                                         value={editTaskData.due_date}
                                         onChange={handleEditInputChange}
@@ -341,6 +384,7 @@ const ProjectDetails = () => {
                                     <p>{task.description}</p>
                                     <p>Status: {task.status} | Priority: {task.priority}</p>
                                     <p><strong>Assigned To:</strong> {users.find(u => u.id === task.assigned_to)?.name || "Unassigned"}</p>
+                                    <p>Start Date: {task.start_date || "N/A"}</p>
                                     <p>Due Date: {task.due_date || "N/A"}</p>
                                     <p>Time Spent: {task.time_spent || 0} hours</p>
                                     <button onClick={() => handleEditTask(task)}>Edit</button>
@@ -399,6 +443,12 @@ const ProjectDetails = () => {
                     <option value="high">High</option>
                 </select>
                 <input
+                type="date"
+                name="start_date"
+                value={newTask.start_date}
+                onChange={handleInputChange}
+            />
+                <input
                     type="date"
                     name="due_date"
                     value={newTask.due_date}
@@ -410,14 +460,18 @@ const ProjectDetails = () => {
             <h3>Gantt Chart</h3>
             <div className="gantt-chart">
                 {tasks.map(task => (
-                    <div key={task.id} className="gantt-task" style={{
-                        marginLeft: `${(new Date(task.start_date || project.start_date).getTime() - new Date(project.start_date).getTime()) / (1000 * 60 * 60 * 24)}px`,
-                        width: `${(new Date(task.due_date).getTime() - new Date(task.start_date || project.start_date).getTime()) / (1000 * 60 * 60 * 24)}px`
-                    }}>
-                        {task.title}
+                    <div
+                        key={task.id}
+                        className="gantt-task"
+                        style={getGanttBarStyle(task.start_date, task.due_date)}
+                    >
+                        <div className="gantt-task-bar"></div>
+                        <span className="gantt-task-title">{task.title}</span>
                     </div>
                 ))}
             </div>
+
+
 
             <button onClick={handleBackToProjects}>Back to Projects List</button>
         </div>

@@ -93,4 +93,23 @@ public function getMembers(Project $project)
     return response()->json($project->members);
 }
 
+public function updateActualCost(Request $request, $id)
+{
+    $validated = $request->validate([
+        'actual_cost' => 'required|numeric|min:0',
+    ]);
+
+    $project = Project::findOrFail($id);
+
+    if ($project->user_id !== Auth::id()) {
+        return response()->json(['message' => 'Unauthorized'], 403);
+    }
+
+    $project->actual_cost = $validated['actual_cost'];
+    $project->save();
+
+    return response()->json($project);
+}
+
+
 }

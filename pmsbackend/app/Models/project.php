@@ -14,6 +14,7 @@ class Project extends Model
         'user_id',
         'status',
         'budget',
+        'actual_cost',
     ];
     
 

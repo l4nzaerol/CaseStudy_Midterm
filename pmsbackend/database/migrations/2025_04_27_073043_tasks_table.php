@@ -15,11 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description')->nullable();
-            $table->foreignId('project_id')->constrained('projects')->onDelete('cascade'); // <-- cascade delete if project deleted
-            $table->foreignId('assigned_to')->nullable()->constrained('users')->onDelete('set null'); // <-- nullable + set null on user deletion
-            $table->string('status')->default('todo'); // example statuses: todo, in_progress, done
-            $table->string('priority')->default('medium'); // example priorities: low, medium, high
+            $table->foreignId('project_id')->constrained()->onDelete('cascade');
+            $table->foreignId('assigned_to')->nullable()->constrained('users')->onDelete('set null');
+            $table->enum('status', ['todo', 'in_progress', 'completed'])->default('todo');
+            $table->enum('priority', ['low', 'medium', 'high'])->default('medium');
+            $table->date('start_date')->nullable();
             $table->date('due_date')->nullable();
+            $table->integer('time_spent')->default(0);
             $table->timestamps();
         });
     }

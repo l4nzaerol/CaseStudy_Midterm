@@ -19,6 +19,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('projects', ProjectController::class);
     Route::post('projects/{project}/addMember', [ProjectController::class, 'addMember']);
     Route::delete('projects/{project}/removeMember', [ProjectController::class, 'removeMember']);
+    Route::middleware('auth:sanctum')->put('/projects/{id}/actual-cost', [ProjectController::class, 'updateActualCost']);
+
 
     // Route to get members of a specific project
     Route::get('projects/{project}/members', [ProjectController::class, 'getMembers']); // New route for getting project members
