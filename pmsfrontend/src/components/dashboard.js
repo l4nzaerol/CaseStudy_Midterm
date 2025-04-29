@@ -60,7 +60,6 @@ const Dashboard = ({ onLogout }) => {
                 </h3>
                 <ul className="sidebar-links">
                     <li><Link to="/projects">Projects</Link></li>
-                    <li><Link to="/tasks">Tasks</Link></li>
                 </ul>
             </aside>
 
