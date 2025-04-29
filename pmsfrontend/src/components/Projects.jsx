@@ -7,25 +7,20 @@ const Projects = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [startDate, setStartDate] = useState("");
-  
-  // For editing
+
   const [editProjectId, setEditProjectId] = useState(null);
   const [editName, setEditName] = useState("");
   const [editDescription, setEditDescription] = useState("");
   const [editStartDate, setEditStartDate] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
-  // Master list of all team‐member users
+
   const [teamMembers, setTeamMembers] = useState([]);
-  
-  // For “Create Project” form: which members will be added
   const [newMember, setNewMember] = useState("");
-  const [newProjectMembers, setNewProjectMembers] = useState([]); // array of IDs
-  
-  // For “Edit Project” modal: members already assigned
+  const [newProjectMembers, setNewProjectMembers] = useState([]);
+
   const [assignedMembers, setAssignedMembers] = useState([]);
   const [modalNewMember, setModalNewMember] = useState("");
-  
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -51,14 +46,21 @@ const Projects = () => {
 
   async function fetchAssignedMembers(projectId) {
     const token = localStorage.getItem("token");
-    const res = await fetch(
-      `http://127.0.0.1:8000/api/projects/${projectId}/members`,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-    if (res.ok) setAssignedMembers(await res.json());
+    const res = await fetch(`http://127.0.0.1:8000/api/projects/${projectId}/members`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data)) {
+        setAssignedMembers(data);
+      } else if (Array.isArray(data.members)) {
+        setAssignedMembers(data.members);
+      } else {
+        setAssignedMembers([]);
+      }
+    }
   }
 
-  // Create Project + add the selected members
   const handleCreateProject = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
@@ -72,28 +74,23 @@ const Projects = () => {
         name,
         description,
         start_date: startDate,
-        user_id: 1, // or current user
+        user_id: 1,
       }),
     });
     if (!res.ok) return console.error("Create failed");
     const project = await res.json();
-    // Add each member
     await Promise.all(
       newProjectMembers.map((memberId) =>
-        fetch(
-          `http://127.0.0.1:8000/api/projects/${project.id}/addMember`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({ user_id: memberId }),
-          }
-        )
+        fetch(`http://127.0.0.1:8000/api/projects/${project.id}/addMember`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ user_id: memberId }),
+        })
       )
     );
-    // reset
     setName("");
     setDescription("");
     setStartDate("");
@@ -101,32 +98,27 @@ const Projects = () => {
     fetchProjects();
   };
 
-  // Edit project details
   const handleEditProject = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
-    const res = await fetch(
-      `http://127.0.0.1:8000/api/projects/${editProjectId}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          name: editName,
-          description: editDescription,
-          start_date: editStartDate,
-        }),
-      }
-    );
+    const res = await fetch(`http://127.0.0.1:8000/api/projects/${editProjectId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        name: editName,
+        description: editDescription,
+        start_date: editStartDate,
+      }),
+    });
     if (!res.ok) return console.error("Update failed");
     await fetchProjects();
     await fetchAssignedMembers(editProjectId);
     closeModal();
   };
 
-  // Delete project
   const handleDeleteProject = async (id) => {
     const token = localStorage.getItem("token");
     const res = await fetch(`http://127.0.0.1:8000/api/projects/${id}`, {
@@ -136,7 +128,6 @@ const Projects = () => {
     if (res.ok) fetchProjects();
   };
 
-  // Add to “Members to Add” on the create form
   const handleAddMemberToNew = () => {
     if (!newMember) return;
     const id = parseInt(newMember, 10);
@@ -145,10 +136,10 @@ const Projects = () => {
     }
     setNewMember("");
   };
+
   const handleRemoveMemberFromNew = (id) =>
     setNewProjectMembers(newProjectMembers.filter((mid) => mid !== id));
 
-  // Add/remove inside the edit modal
   const handleAddMemberInModal = async () => {
     if (!modalNewMember) return;
     const id = parseInt(modalNewMember, 10);
@@ -169,6 +160,7 @@ const Projects = () => {
       await fetchAssignedMembers(editProjectId);
     }
   };
+
   const handleRemoveMemberInModal = async (userId) => {
     const token = localStorage.getItem("token");
     const res = await fetch(
@@ -193,6 +185,7 @@ const Projects = () => {
     fetchAssignedMembers(project.id);
     setIsModalOpen(true);
   };
+
   const closeModal = () => {
     setIsModalOpen(false);
     setEditProjectId(null);
@@ -227,8 +220,6 @@ const Projects = () => {
               className="input-field"
               required
             />
-
-            {/* Select & Add Members BEFORE creating */}
             <div className="team-member-selection">
               <select
                 value={newMember}
@@ -251,7 +242,6 @@ const Projects = () => {
               </button>
             </div>
 
-            {/* Show names of “Members to Add” */}
             {newProjectMembers.length > 0 && (
               <div className="selected-members">
                 <h4>Members to Add:</h4>
@@ -301,24 +291,9 @@ const Projects = () => {
                   <td>{p.start_date}</td>
                   <td>{p.status}</td>
                   <td className="button-group">
-                    <button
-                      className="edit-button"
-                      onClick={() => openModal(p)}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="delete-button"
-                      onClick={() => handleDeleteProject(p.id)}
-                    >
-                      Delete
-                    </button>
-                    <button
-                      className="view-button"
-                      onClick={() => navigate(`/projects/${p.id}`)}
-                    >
-                      View
-                    </button>
+                    <button className="edit-button" onClick={() => openModal(p)}>Edit</button>
+                    <button className="delete-button" onClick={() => handleDeleteProject(p.id)}>Delete</button>
+                    <button className="view-button" onClick={() => navigate(`/projects/${p.id}`)}>View</button>
                   </td>
                 </tr>
               ))}
@@ -350,8 +325,6 @@ const Projects = () => {
                   className="input-field"
                   required
                 />
-
-                {/* Assigned Members List */}
                 <h4>Assigned Members</h4>
                 <ul className="assigned-members-list">
                   {assignedMembers.map((m) => (
@@ -368,7 +341,6 @@ const Projects = () => {
                   ))}
                 </ul>
 
-                {/* Add more in modal */}
                 <div className="team-member-selection">
                   <select
                     value={modalNewMember}
@@ -377,9 +349,7 @@ const Projects = () => {
                   >
                     <option value="">Select Team Member</option>
                     {teamMembers
-                      .filter(
-                        (m) => !assignedMembers.some((am) => am.id === m.id)
-                      )
+                      .filter((m) => !assignedMembers.some((am) => am.id === m.id))
                       .map((m) => (
                         <option key={m.id} value={m.id}>
                           {m.name}
