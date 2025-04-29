@@ -7,7 +7,8 @@ const Projects = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [startDate, setStartDate] = useState("");
-
+  
+  // For editing
   const [editProjectId, setEditProjectId] = useState(null);
   const [editName, setEditName] = useState("");
   const [editDescription, setEditDescription] = useState("");
@@ -74,7 +75,7 @@ const Projects = () => {
         name,
         description,
         start_date: startDate,
-        user_id: 1,
+        user_id: 1, // or current user
       }),
     });
     if (!res.ok) return console.error("Create failed");
@@ -192,10 +193,14 @@ const Projects = () => {
     setAssignedMembers([]);
   };
 
+  const handleBackToDashboard = () => {
+    navigate('/dashboard');
+};
+
   return (
     <div className="gradient-bg">
       <div className="main-content">
-        <h2 className="dashboard-header">Projects</h2>
+        <h2 className="dashboard-header">Projects</h2> <button onClick={handleBackToDashboard}>Back to Dashboard</button>
 
         {/* Create Project */}
         <div className="form-container">
@@ -214,12 +219,15 @@ const Projects = () => {
               className="textarea-field"
             />
             <input
+              placeholder="Start Date"
               type="date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
               className="input-field"
               required
             />
+
+            {/* Select & Add Members BEFORE creating */}
             <div className="team-member-selection">
               <select
                 value={newMember}
@@ -280,7 +288,7 @@ const Projects = () => {
                 <th>Description</th>
                 <th>Start Date</th>
                 <th>Status</th>
-                <th>Actions</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -378,11 +386,14 @@ const Projects = () => {
                   </button>
                 </div>
               </form>
+              
             </div>
           </div>
         )}
       </div>
+      
     </div>
+    
   );
 };
 

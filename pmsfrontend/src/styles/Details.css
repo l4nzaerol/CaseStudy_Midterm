@@ -1,131 +1,182 @@
+/* Overall container styles */
 .project-details-container {
-    width: 80%;
-    max-width: 900px;
-    margin: 0 auto;
+    width: 85%;
+    max-width: 1100px;
+    margin: 40px auto;
     padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
+/* Header Section */
 .project-details-container h2 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: bold;
     color: #333;
     margin-bottom: 10px;
 }
 
 .project-details-container p {
-    font-size: 1rem;
-    color: #555;
-    margin-bottom: 8px;
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 12px;
 }
 
 .project-details-container p strong {
     color: #333;
 }
 
-.project-details-container h3 {
-    font-size: 1.5rem;
-    color: #222;
-    margin-top: 30px;
-    margin-bottom: 10px;
-}
-
-.project-details-container ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.project-details-container li {
-    background-color: #fff;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 15px;
-}
-
-.project-details-container li h4 {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 5px;
-}
-
-.project-details-container form {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-top: 30px;
-}
-
-.project-details-container form input,
-.project-details-container form select,
-.project-details-container form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1rem;
-}
-
-.project-details-container form button {
-    background-color: #4CAF50;
-    color: white;
-    font-size: 1rem;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.project-details-container form button:hover {
-    background-color: #45a049;
-}
-
-.project-details-container .back-button {
-    background-color: #007BFF;
-    color: white;
-    font-size: 1rem;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+/* Project Header */
+.project-header {
+    margin-bottom: 40px;
     text-align: center;
-    display: inline-block;
-    margin-top: 20px;
-    text-decoration: none;
-    transition: background-color 0.3s;
 }
 
-.project-details-container .back-button:hover {
-    background-color: #0056b3;
+.project-header h2 {
+    margin: 0;
+    font-size: 2.5rem;
+    color: #333;
 }
 
-.project-details-container .back-button:focus {
-    outline: none;
+.project-header p {
+    font-size: 1.1rem;
+    color: #666;
+    margin: 5px 0;
 }
 
-/* Progress Bar Styles */
+/* Progress Bar */
 .progress-bar-container {
     width: 100%;
     background-color: #ddd;
     border-radius: 20px;
     overflow: hidden;
     margin-bottom: 20px;
+    height: 25px;
 }
 
 .progress-bar {
-    height: 25px;
+    height: 100%;
     background-color: #4CAF50;
     color: white;
     text-align: center;
     line-height: 25px;
     font-weight: bold;
     transition: width 0.5s ease-in-out;
+}
+
+/* Section Titles */
+.project-details-container h3 {
+    font-size: 1.8rem;
+    color: #222;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+/* Budget Tracking */
+.budget-tracking {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    padding: 15px;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.budget-tracking p {
+    font-size: 1.1rem;
+    color: #555;
+    margin: 0;
+}
+
+.budget-tracking .budget-update-form {
+    display: flex;
+    align-items: center;
+}
+
+.budget-update-form input {
+    width: 150px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-right: 10px;
+}
+
+.budget-update-form button {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1rem;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.budget-update-form button:hover {
+    background-color: #45a049;
+}
+
+/* Task List */
+.task-list {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.task-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.task-list li {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.task-list li h4 {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.task-list li p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.task-list .task-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.task-list .task-actions button {
+    background-color: #007BFF;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 10px;
+}
+
+.task-list .task-actions button:hover {
+    background-color: #0056b3;
+}
+
+.task-list .task-actions button[type="button"] {
+    background-color: #f44336;
+}
+
+.task-list .task-actions button[type="button"]:hover {
+    background-color: #d32f2f;
 }
 
 /* Gantt Chart Styles */
@@ -140,7 +191,7 @@
 }
 
 .gantt-task {
-    background-color: #007BFF;
+    background-color: #4CAF50;
     color: white;
     padding: 8px;
     border-radius: 4px;
@@ -151,16 +202,94 @@
     position: relative;
 }
 
-/* Task Buttons (Edit/Delete) */
-.project-details-container button {
-    margin-right: 10px;
-    margin-top: 8px;
+/* Form Styles */
+.project-details-container form {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
 }
 
-.project-details-container button[type="button"] {
-    background-color: #f44336;
+.project-details-container form input,
+.project-details-container form select,
+.project-details-container form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    background-color: #f9f9f9;
 }
 
-.project-details-container button[type="button"]:hover {
-    background-color: #d32f2f;
+.project-details-container form button {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1.2rem;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.project-details-container form button:hover {
+    background-color: #45a049;
+}
+
+/* Back Button */
+.project-details-container .back-button {
+    background-color: #007BFF;
+    color: white;
+    font-size: 1.1rem;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 30px;
+    transition: background-color 0.3s;
+    text-align: center;
+    display: inline-block;
+}
+
+.project-details-container .back-button:hover {
+    background-color: #0056b3;
+}
+
+.project-details-container .back-button:focus {
+    outline: none;
+}
+
+/* Task Form Section */
+.new-task-form {
+    margin-top: 30px;
+}
+
+.new-task-form input,
+.new-task-form select,
+.new-task-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    background-color: #f9f9f9;
+}
+
+.new-task-form button {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1.1rem;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.new-task-form button:hover {
+    background-color: #45a049;
 }

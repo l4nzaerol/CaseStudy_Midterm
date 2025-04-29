@@ -10,7 +10,7 @@ class TeamMemberSeeder extends Seeder
 {
     public function run()
     {
-        // Array of different team member names
+        // Seed 5 team members
         $teamMembers = [
             'Lanz Aerol Ardenio',
             'Regie Shaine Asi',
@@ -19,14 +19,21 @@ class TeamMemberSeeder extends Seeder
             'Calvin Batiao',
         ];
 
-        // Create 5 users with different names and assign the 'team_member' role to each
         foreach ($teamMembers as $name) {
-            $user = User::create([
+            User::create([
                 'name' => $name,
-                'email' => strtolower(str_replace(' ', '.', $name)) . '@example.com', // Generate email from name
-                'password' => Hash::make('password'), // Default password (hashed)
+                'email' => strtolower(str_replace(' ', '.', $name)) . '@example.com',
+                'password' => Hash::make('password'),
                 'role' => 'team_member',
             ]);
         }
+
+        // Seed 1 project manager
+        User::create([
+            'name' => 'Project Manager',
+            'email' => 'klickadmin@gmail.com',
+            'password' => Hash::make('password'), // Default password
+            'role' => 'project_manager',
+        ]);
     }
 }
