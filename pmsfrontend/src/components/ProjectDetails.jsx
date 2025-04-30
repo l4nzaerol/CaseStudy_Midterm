@@ -5,7 +5,8 @@ import "../styles/Details.css";
 const ProjectDetails = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const [project, setProject] = useState(null);
+    const [project, setProject] = useState(null)
+    const [showModal, setShowModal] = useState(false);
     const [tasks, setTasks] = useState([]);
     const [users, setUsers] = useState([]);
     const [newTask, setNewTask] = useState({
@@ -308,156 +309,233 @@ const ProjectDetails = () => {
             </form>
 
             <h3>Tasks</h3>
-            <ul>
-                {tasks.length > 0 ? (
-                    tasks.map(task => (
-                        <li key={task.id}>
-                            {editTaskId === task.id ? (
-                                <form onSubmit={handleUpdateTask}>
-                                    <input
-                                        type="text"
-                                        name="title"
-                                        value={editTaskData.title}
-                                        onChange={handleEditInputChange}
-                                        required
-                                    />
-                                    <textarea
-                                        name="description"
-                                        value={editTaskData.description}
-                                        onChange={handleEditInputChange}
-                                    />
-                                    <select
-                                        name="assigned_to"
-                                        value={editTaskData.assigned_to}
-                                        onChange={handleEditInputChange}
-                                    >
-                                        <option value="">Assign User</option>
-                                        {users.map(user => (
-                                            <option key={user.id} value={user.id}>{user.name}</option>
-                                        ))}
-                                    </select>
-                                    <select
-                                        name="status"
-                                        value={editTaskData.status}
-                                        onChange={handleEditInputChange}
-                                    >
-                                        <option value="todo">To Do</option>
-                                        <option value="in_progress">In Progress</option>
-                                        <option value="done">Done</option>
-                                    </select>
-                                    <select
-                                        name="priority"
-                                        value={editTaskData.priority}
-                                        onChange={handleEditInputChange}
-                                    >
-                                        <option value="low">Low</option>
-                                        <option value="medium">Medium</option>
-                                        <option value="high">High</option>
-                                    </select>
-                                    <input
-                                        type="date"
-                                        name="start_date"
-                                        value={editTaskData.start_date || ''}
-                                        onChange={handleEditInputChange}
-                                    />
+{tasks.length > 0 ? (
+    <table border="1" cellPadding="10" style={{ width: "100%", borderCollapse: "collapse" }}>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Assigned To</th>
+                <th>Status</th>
+                <th>Priority</th>
+                <th>Start Date</th>
+                <th>Due Date</th>
+                <th>Time Spent (hrs)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {tasks.map(task => (
+                <tr key={task.id}>
+                    {editTaskId === task.id ? (
+                        <>
+                            <td>
+                                <input
+                                    type="text"
+                                    name="title"
+                                    value={editTaskData.title}
+                                    onChange={handleEditInputChange}
+                                    required
+                                />
+                            </td>
+                            <td>
+                                <textarea
+                                    name="description"
+                                    value={editTaskData.description}
+                                    onChange={handleEditInputChange}
+                                />
+                            </td>
+                            <td>
+                                <select
+                                    name="assigned_to"
+                                    value={editTaskData.assigned_to}
+                                    onChange={handleEditInputChange}
+                                >
+                                    <option value="">Assign User</option>
+                                    {users.map(user => (
+                                        <option key={user.id} value={user.id}>{user.name}</option>
+                                    ))}
+                                </select>
+                            </td>
+                            <td>
+                                <select
+                                    name="status"
+                                    value={editTaskData.status}
+                                    onChange={handleEditInputChange}
+                                >
+                                    <option value="todo">To Do</option>
+                                    <option value="in_progress">In Progress</option>
+                                    <option value="done">Done</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select
+                                    name="priority"
+                                    value={editTaskData.priority}
+                                    onChange={handleEditInputChange}
+                                >
+                                    <option value="low">Low</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="high">High</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input
+                                    type="date"
+                                    name="start_date"
+                                    value={editTaskData.start_date || ''}
+                                    onChange={handleEditInputChange}
+                                />
+                            </td>
+                            <td>
+                                <input
+                                    type="date"
+                                    name="due_date"
+                                    value={editTaskData.due_date}
+                                    onChange={handleEditInputChange}
+                                />
+                            </td>
+                            <td>
+                                <input
+                                    type="number"
+                                    name="time_spent"
+                                    placeholder="Hours spent"
+                                    value={editTaskData.time_spent || ''}
+                                    onChange={handleEditInputChange}
+                                    min="0"
+                                />
+                            </td>
+                            <td>
+                                <button type="button" onClick={handleUpdateTask}>Save</button>
+                                <button type="button" onClick={() => setEditTaskId(null)}>Cancel</button>
+                            </td>
+                        </>
+                    ) : (
+                        <>
+                            <td>{task.title}</td>
+                            <td>{task.description}</td>
+                            <td>{users.find(u => u.id === task.assigned_to)?.name || "Unassigned"}</td>
+                            <td>{task.status}</td>
+                            <td>{task.priority}</td>
+                            <td>{task.start_date || "N/A"}</td>
+                            <td>{task.due_date || "N/A"}</td>
+                            <td>{task.time_spent || 0}</td>
+                            <td>
+                                <button onClick={() => handleEditTask(task)}>Edit</button>
+                                <button onClick={() => handleDeleteTask(task.id)}>Delete</button>
+                            </td>
+                        </>
+                    )}
+                </tr>
+            ))}
+        </tbody>
+    </table>
+) : (
+    <p>No tasks assigned yet.</p>
+)}
 
-                                    <input
-                                        type="date"
-                                        name="due_date"
-                                        value={editTaskData.due_date}
-                                        onChange={handleEditInputChange}
-                                    />
-                                    <input
-                                        type="number"
-                                        name="time_spent"
-                                        placeholder="Hours spent"
-                                        value={editTaskData.time_spent || ''}
-                                        onChange={handleEditInputChange}
-                                        min="0"
-                                    />
-                                    <button type="submit">Save</button>
-                                    <button type="button" onClick={() => setEditTaskId(null)}>Cancel</button>
-                                </form>
-                            ) : (
-                                <>
-                                    <h4>{task.title}</h4>
-                                    <p>{task.description}</p>
-                                    <p>Status: {task.status} | Priority: {task.priority}</p>
-                                    <p><strong>Assigned To:</strong> {users.find(u => u.id === task.assigned_to)?.name || "Unassigned"}</p>
-                                    <p>Start Date: {task.start_date || "N/A"}</p>
-                                    <p>Due Date: {task.due_date || "N/A"}</p>
-                                    <p>Time Spent: {task.time_spent || 0} hours</p>
-                                    <button onClick={() => handleEditTask(task)}>Edit</button>
-                                    <button onClick={() => handleDeleteTask(task.id)}>Delete</button>
-                                </>
-                            )}
-                        </li>
-                    ))
-                ) : (
-                    <p>No tasks assigned yet.</p>
-                )}
-            </ul>
 
-            <h3>Create New Task</h3>
-            <form onSubmit={handleCreateTask}>
-                <input
-                    type="text"
-                    name="title"
-                    placeholder="Task Title"
-                    value={newTask.title}
-                    onChange={handleInputChange}
-                    required
-                />
-                <textarea
-                    name="description"
-                    placeholder="Task Description"
-                    value={newTask.description}
-                    onChange={handleInputChange}
-                />
-                <select
-                    name="assigned_to"
-                    value={newTask.assigned_to}
-                    onChange={handleInputChange}
-                >
-                    <option value="">Assign User</option>
-                    {users.map(user => (
-                        <option key={user.id} value={user.id}>{user.name}</option>
-                    ))}
-                </select>
-                <select
-                    name="status"
-                    value={newTask.status}
-                    onChange={handleInputChange}
-                >
-                    <option value="todo">To Do</option>
-                    <option value="in_progress">In Progress</option>
-                    <option value="done">Done</option>
-                </select>
-                <select
-                    name="priority"
-                    value={newTask.priority}
-                    onChange={handleInputChange}
-                >
-                    <option value="low">Low</option>
-                    <option value="medium">Medium</option>
-                    <option value="high">High</option>
-                </select>
-                <input
-                type="date"
-                name="start_date"
-                value={newTask.start_date}
-                onChange={handleInputChange}
-            />
-                <input
-                    type="date"
-                    name="due_date"
-                    value={newTask.due_date}
-                    onChange={handleInputChange}
-                />
-                <button type="submit">Create Task</button>
-            </form>
+<button
+  onClick={() => setShowModal(true)}
+  className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mb-4"
+>
+  + Create Task
+</button>
 
-            <h3>Gantt Chart</h3>
+{showModal && (
+  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div className="bg-white rounded-lg w-full max-w-xl p-6 shadow-lg relative">
+      <button
+        onClick={() => setShowModal(false)}
+        className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+      >
+        ✕
+      </button>
+
+      <h3 className="text-xl font-semibold mb-4">Create New Task</h3>
+      <form onSubmit={handleCreateTask} className="space-y-3">
+        <input
+          type="text"
+          name="title"
+          placeholder="Task Title"
+          value={newTask.title}
+          onChange={handleInputChange}
+          required
+          className="w-full border p-2 rounded"
+        />
+        <textarea
+          name="description"
+          placeholder="Task Description"
+          value={newTask.description}
+          onChange={handleInputChange}
+          className="w-full border p-2 rounded"
+        />
+        <select
+          name="assigned_to"
+          value={newTask.assigned_to}
+          onChange={handleInputChange}
+          className="w-full border p-2 rounded"
+        >
+          <option value="">Assign User</option>
+          {users.map(user => (
+            <option key={user.id} value={user.id}>{user.name}</option>
+          ))}
+        </select>
+        <select
+          name="status"
+          value={newTask.status}
+          onChange={handleInputChange}
+          className="w-full border p-2 rounded"
+        >
+          <option value="todo">To Do</option>
+          <option value="in_progress">In Progress</option>
+          <option value="done">Done</option>
+        </select>
+        <select
+          name="priority"
+          value={newTask.priority}
+          onChange={handleInputChange}
+          className="w-full border p-2 rounded"
+        >
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+        <input
+          type="date"
+          name="start_date"
+          value={newTask.start_date}
+          onChange={handleInputChange}
+          className="w-full border p-2 rounded"
+        />
+        <input
+          type="date"
+          name="due_date"
+          value={newTask.due_date}
+          onChange={handleInputChange}
+          className="w-full border p-2 rounded"
+        />
+        <div className="flex justify-end gap-2">
+          <button
+            type="submit"
+            className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+          >
+            Create Task
+          </button>
+          <button
+            type="button"
+            onClick={() => setShowModal(false)}
+            className="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+)}
+
+<h3>Gantt Chart</h3>
             <div className="gantt-chart">
                 {tasks.map(task => (
                     <div
@@ -473,7 +551,9 @@ const ProjectDetails = () => {
 
 
 
-            <button onClick={handleBackToProjects}>Back to Projects List</button>
+
+            <button className="back-to-projects-btn" onClick={handleBackToProjects}>Back to Projects List</button>
+
         </div>
     );
 };

@@ -17,7 +17,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->date('start_date');
             $table->date('end_date')->nullable();
-            $table->string('status')->default('planning'); // example statuses: planning, ongoing, completed
+            $table->string('status')->default('planning'); // example statuses: planning, ongoing, complet
+            $table->decimal('budget', 10, 2)->default(0);
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // <-- corrected with onDelete cascade
             $table->timestamps();
         });

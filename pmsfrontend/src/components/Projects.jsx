@@ -15,6 +15,8 @@ const Projects = () => {
   const [editStartDate, setEditStartDate] = useState("");
   const [editEndDate, setEditEndDate] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [budget, setBudget] = useState("");
+
 
   const navigate = useNavigate();
 
@@ -49,17 +51,22 @@ const Projects = () => {
         description,
         start_date: startDate,
         end_date: endDate,
+        budget,
         user_id: 1,
       }),
+      
     });
 
     if (res.ok) {
-      setName("");
-      setDescription("");
-      setStartDate("");
-      setEndDate("");
-      fetchProjects();
-    }
+  setName("");
+  setDescription("");
+  setStartDate("");
+  setEndDate("");
+  setBudget(""); // <-- add this
+  fetchProjects();
+}
+
+    
   };
 
   const handleDeleteProject = async (id) => {
@@ -143,6 +150,14 @@ const Projects = () => {
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
             />
+            <input
+              type="number"
+              placeholder="Total Budget"
+              value={budget}
+              onChange={(e) => setBudget(e.target.value)}
+              required
+            />
+
             <button type="submit">Create Project</button>
           </form>
         </div>
@@ -158,6 +173,7 @@ const Projects = () => {
                 <th>Start</th>
                 <th>End</th>
                 <th>Status</th>
+                <th>Budget</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -169,6 +185,7 @@ const Projects = () => {
                   <td>{p.start_date}</td>
                   <td>{p.end_date || "-"}</td>
                   <td>{p.status}</td>
+                  <td>{p.budget}</td>
                   <td>
                     <button onClick={() => openModal(p)}>Edit</button>
                     <button onClick={() => handleDeleteProject(p.id)}>Delete</button>
