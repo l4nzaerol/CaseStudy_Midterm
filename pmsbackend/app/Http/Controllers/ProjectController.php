@@ -14,25 +14,27 @@ class ProjectController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'start_date' => 'required|date',
-            'end_date' => 'nullable|date|after_or_equal:start_date',
-        ]);
+{
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'description' => 'nullable|string',
+        'start_date' => 'required|date',
+        'end_date' => 'nullable|date|after_or_equal:start_date',
+        'budget' => 'required|numeric|min:0', // ✅ Validate budget
+    ]);
 
-        $project = Project::create([
-            'name' => $validated['name'],
-            'description' => $validated['description'] ?? null,
-            'start_date' => $validated['start_date'],
-            'end_date' => $validated['end_date'] ?? null,
-            'status' => 'planning',
-            'user_id' => Auth::id(),
-        ]);
+    $project = Project::create([
+        'name' => $validated['name'],
+        'description' => $validated['description'] ?? null,
+        'start_date' => $validated['start_date'],
+        'end_date' => $validated['end_date'] ?? null,
+        'budget' => $validated['budget'], // ✅ Save budget
+        'status' => 'planning',
+        'user_id' => Auth::id(),
+    ]);
 
-        return response()->json($project, 201);
-    }
+    return response()->json($project, 201);
+}
 
     public function show(Project $project)
     {
