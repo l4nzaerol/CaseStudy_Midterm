@@ -1,34 +1,29 @@
 import React from 'react';
 import { Gantt, ViewMode } from 'gantt-task-react';
 import 'gantt-task-react/dist/index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './ProjectGanttChart.css';
 
 const ProjectGanttChart = ({ tasks }) => {
-
   if (!Array.isArray(tasks)) {
     console.warn('Tasks prop is not an array');
-    return <div>No valid tasks to display</div>;
+    return <div className="alert alert-warning">No valid tasks to display</div>;
   }
 
-  // Filter and map tasks with strict validation
   const ganttTasks = tasks.reduce((acc, task) => {
-    if (!task) {
-      console.warn('Skipping falsy task:', task);
+    if (!task || !task.start_time || !task.due_time) {
+      console.warn('Skipping invalid task:', task);
       return acc;
     }
 
-    if (!task.start_time || !task.due_time) {
-      console.warn('Missing start_time or due_time for task:', task);
-      return acc;
-    }
-    
     const startDate = new Date(task.start_time);
     const endDate = new Date(task.due_time);
-    
+
     if (isNaN(startDate) || isNaN(endDate)) {
-      console.warn('Invalid start_time or due_time:', task);
+      console.warn('Invalid date format in task:', task);
       return acc;
     }
-    
+
     const ganttTask = {
       start: startDate,
       end: endDate,
@@ -38,26 +33,34 @@ const ProjectGanttChart = ({ tasks }) => {
       progress: task.status === 'completed' ? 100 : 0,
       isDisabled: true,
     };
-    
+
     acc.push(ganttTask);
-    return acc;    
+    return acc;
   }, []);
 
-  console.log('Mapped ganttTasks:', ganttTasks);
-
   if (ganttTasks.length === 0) {
-    return <div>No valid tasks to display</div>;
+    return <div className="alert alert-warning">No valid tasks to display</div>;
   }
 
   return (
-    <div>
-      <h5>Gantt Chart</h5>
-      <Gantt
-        tasks={ganttTasks}
-        viewMode={ViewMode.Day}
-        locale="en"
-        listCellWidth="155px"
-      />
+    <div className="gantt-card">
+      <div className="gantt-header text-white px-4 py-3">
+        <h4 className="fw-bold mb-0">🗓️ Project Timeline Overview</h4>
+      </div>
+      <div className="gantt-body">
+        <div className="gantt-scroll">
+          <Gantt
+            tasks={ganttTasks}
+            viewMode={ViewMode.Day}
+            locale="en"
+            listCellWidth="220px"
+            barProgressColor="#0d6efd"
+            barBackgroundColor="#adb5bd"
+            fontSize="14"
+            columnWidth={60}
+          />
+        </div>
+      </div>
     </div>
   );
 };

@@ -37,10 +37,8 @@ const ProjectForm = () => {
           setFormData({
             name: project.name,
             description: project.description || "",
-            start_date: project.start_date
-              ? project.start_date.split("T")[0]
-              : "",
-            due_date: project.due_date ? project.due_date.split("T")[0] : "",
+            start_date: project.start_date?.split("T")[0] || "",
+            due_date: project.due_date?.split("T")[0] || "",
             status: project.status,
             budget: project.budget || "",
           });
@@ -69,7 +67,6 @@ const ProjectForm = () => {
       const url = isEditing
         ? `http://localhost:8000/api/projects/${id}`
         : "http://localhost:8000/api/projects";
-      console.log("Submitting project formData:", formData);
 
       await axios({
         method,
@@ -82,141 +79,149 @@ const ProjectForm = () => {
 
       navigate("/projects");
     } catch (err) {
-      if (err.response && err.response.data && err.response.data.message) {
-        setError(`Failed to save project: ${err.response.data.message}`);
-      } else {
-        setError("You dont have permission to perform this action.");
-      }
-      console.error("Project save error:", err);
+      setError(
+        err.response?.data?.message ||
+          "You don't have permission to perform this action."
+      );
     }
   };
 
-  if (loading) return (
-    <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
-      <div className="text-center">
-        <div className="spinner-border text-primary" role="status" style={{ width: '3rem', height: '3rem' }}>
-          <span className="visually-hidden">Loading...</span>
+  if (loading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
+        <div className="text-center">
+          <div className="spinner-border text-primary" role="status" style={{ width: "3rem", height: "3rem" }}>
+            <span className="visually-hidden">Loading...</span>
+          </div>
+          <p className="mt-2">Loading Form...</p>
         </div>
-        <div className="mt-2">Loading Form...</div>
       </div>
-    </div>
-  );
+    );
+  }
 
   return (
-    <div className="project-form">
-      <h2>{isEditing ? "Edit Project" : "Create New Project"}</h2>
-
-      {error && <div className="alert alert-danger">{error}</div>}
-
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="name" className="form-label">
-            Project Name
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
+    <div className="container py-5">
+      <div className="card shadow-lg border-0 rounded-4">
+        <div className="card-header bg-gradient bg-primary text-white py-3 rounded-top-4">
+          <h3 className="mb-0">
+            {isEditing ? "✏️ Edit Project" : "🆕 Create New Project"}
+          </h3>
         </div>
+        <div className="card-body p-4">
+          {error && <div className="alert alert-danger">{error}</div>}
 
-        <div className="mb-3">
-          <label htmlFor="description" className="form-label">
-            Description
-          </label>
-          <textarea
-            className="form-control"
-            id="description"
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            rows={3}
-          />
+          <form onSubmit={handleSubmit} className="needs-validation" noValidate>
+            <div className="mb-3">
+              <label htmlFor="name" className="form-label fw-semibold">
+                Project Name
+              </label>
+              <input
+                type="text"
+                className="form-control shadow-sm"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                placeholder="Enter project title"
+              />
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="description" className="form-label fw-semibold">
+                Description
+              </label>
+              <textarea
+                className="form-control shadow-sm"
+                id="description"
+                name="description"
+                rows="3"
+                value={formData.description}
+                onChange={handleChange}
+                placeholder="Brief description about the project"
+              ></textarea>
+            </div>
+
+            <div className="row mb-3">
+              <div className="col-md-6">
+                <label htmlFor="start_date" className="form-label fw-semibold">
+                  Start Date
+                </label>
+                <input
+                  type="date"
+                  className="form-control shadow-sm"
+                  id="start_date"
+                  name="start_date"
+                  value={formData.start_date}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="col-md-6">
+                <label htmlFor="due_date" className="form-label fw-semibold">
+                  Due Date
+                </label>
+                <input
+                  type="date"
+                  className="form-control shadow-sm"
+                  id="due_date"
+                  name="due_date"
+                  value={formData.due_date}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="status" className="form-label fw-semibold">
+                Status
+              </label>
+              <select
+                className="form-select shadow-sm"
+                id="status"
+                name="status"
+                value={formData.status}
+                onChange={handleChange}
+              >
+                <option value="planning">Planning</option>
+                <option value="active">Active</option>
+                <option value="on_hold">On Hold</option>
+                <option value="completed">Completed</option>
+              </select>
+            </div>
+
+            <div className="mb-4">
+              <label htmlFor="budget" className="form-label fw-semibold">
+                Budget (₱)
+              </label>
+              <input
+                type="number"
+                className="form-control shadow-sm"
+                id="budget"
+                name="budget"
+                min="0"
+                step="0.01"
+                value={formData.budget}
+                onChange={handleChange}
+                placeholder="e.g. 50000"
+              />
+            </div>
+
+            <div className="d-flex gap-3">
+              <button type="submit" className="btn btn-success px-4">
+                {isEditing ? "Update Project" : "Create Project"}
+              </button>
+              <button
+                type="button"
+                className="btn btn-outline-secondary"
+                onClick={() => navigate("/projects")}
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
         </div>
-
-        <div className="row mb-3">
-          <div className="col">
-            <label htmlFor="start_date" className="form-label">
-              Start Date
-            </label>
-            <input
-              type="date"
-              className="form-control"
-              id="start_date"
-              name="start_date"
-              value={formData.start_date}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="col">
-            <label htmlFor="due_date" className="form-label">
-              Due Date
-            </label>
-            <input
-              type="date"
-              className="form-control"
-              id="due_date"
-              name="due_date"
-              value={formData.due_date}
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="status" className="form-label">
-            Status
-          </label>
-          <select
-            className="form-select"
-            id="status"
-            name="status"
-            value={formData.status}
-            onChange={handleChange}
-            required
-          >
-            <option value="planning">Planning</option>
-            <option value="active">Active</option>
-            <option value="on_hold">On Hold</option>
-            <option value="completed">Completed</option>
-          </select>
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="budget" className="form-label">
-            Budget (₱)
-          </label>
-          <input
-            type="number"
-            className="form-control"
-            id="budget"
-            name="budget"
-            value={formData.budget}
-            onChange={handleChange}
-            min="0"
-            step="0.01"
-          />
-        </div>
-
-        <div className="d-flex gap-2">
-          <button type="submit" className="btn btn-primary">
-            {isEditing ? "Update Project" : "Create Project"}
-          </button>
-          <button
-            type="button"
-            className="btn btn-secondary"
-            onClick={() => navigate("/projects")}
-          >
-            Cancel
-          </button>
-        </div>
-      </form>
+      </div>
     </div>
   );
 };
