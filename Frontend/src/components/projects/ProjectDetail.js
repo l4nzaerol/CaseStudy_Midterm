@@ -164,7 +164,7 @@ const ProjectDetail = () => {
       {/* Progress Tab */}
       <div className="tab-pane fade show active" id="progress" role="tabpanel">
         <div className="bg-white p-4 rounded shadow-sm border mb-4">
-          <h6 className="text-dark mb-3"><i className="bi bi-graph-up-arrow me-2"></i>Task Completion</h6>
+          <h6 className="text-dark mb-3"><i className="bi bi-graph-up-arrow me-2"></i>Project Progress</h6>
           <div className="progress mb-3" style={{ height: "30px" }}>
             <div className="progress-bar bg-success" style={{ width: `${completion}%` }}>{completion}%</div>
           </div>
