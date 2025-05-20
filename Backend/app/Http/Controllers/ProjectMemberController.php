@@ -34,7 +34,7 @@ class ProjectMemberController extends Controller
 
         $project->members()->attach($request->user_id);
 
-        // 👇 Create activity log for the added user
+        // 👇 Create activity log for the 
         ActivityLog::create([
             'user_id' => $request->user_id,
             'project_id' => $project->id,
