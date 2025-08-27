@@ -5,34 +5,27 @@
 
 /* ========== BASE STYLES ========== */
 :root {
-  /* Color palette */
-  --primary: #007bff;
-  --primary-dark: #0056b3;
-  --primary-darker: #004085;
-  --secondary: #6c757d;
-  --secondary-dark: #545b62;
-  --success: #28a745;
-  --danger: #dc3545;
-  --danger-dark: #bd2130;
-  --warning: #ffc107;
-  --warning-dark: #d39e00;
-  --info: #17a2b8;
-  --info-dark: #117a8b;
-  
-  /* Neutrals */
-  --dark: #343a40;
-  --gray-dark: #495057;
-  --gray: #6c757d;
-  --gray-light: #adb5bd;
-  --light: #f8f9fa;
+  --primary: #f4a9b8; /* soft pink */
+  --primary-dark: #e08aa0;
+  --primary-darker: #cc6d84;
+  --secondary: #fbe7e9; /* pale blush */
+  --secondary-dark: #f3d6d9;
+  --success: #a4d4ae;
+  --danger: #f3a6a6;
+  --warning: #ffe7aa;
+  --info: #b6d8f6;
+
+  --dark: #524b4b;
+  --gray-dark: #7d7d7d;
+  --gray: #bfbfbf;
+  --gray-light: #e6e6e6;
+  --light: #fff8f9;
   --white: #ffffff;
-  
-  /* Semantic colors */
-  --body-bg: #f8f9fa;
-  --body-color: #212529;
-  --border-color: #dee2e6;
-  --input-border: #ced4da;
-  --focus-shadow: rgba(0, 123, 255, 0.25);
+
+  --body-bg: #fffdfd;
+  --body-color: #333;
+  --input-border: #e5ccd3;
+  --focus-shadow: rgba(244, 169, 184, 0.4);
   --shadow-sm: rgba(0, 0, 0, 0.075);
   --shadow-md: rgba(0, 0, 0, 0.1);
   --shadow-lg: rgba(0, 0, 0, 0.2);
